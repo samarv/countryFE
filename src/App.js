@@ -6,10 +6,16 @@ import "./App.css";
 function App() {
   const [countryOptions, setcountryOptions] = useState([]);
 
+  let beURL = "http://localhost:5555/api/search/";
+
+  if (process.env.NODE_ENV === "production") {
+    beURL = "https://samcountrybe.herokuapp.com/api/search";
+  }
+
   const handleInput = e => {
     if (e.target.value !== "") {
       axios
-        .post("http://localhost:5555/api/search/", {
+        .post(beURL, {
           query: e.target.value,
         })
         .then(res => {
